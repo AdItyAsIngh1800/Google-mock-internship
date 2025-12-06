@@ -287,3 +287,134 @@ This is a classic imbalance problem in classification.
     -   Marketing, virality, social media trends
         
 -   **No hyperparameter tuning**  was performed.
+
+----------
+
+----------
+
+# **Task 3 — SQL Database & Analytical Queries**
+
+## **Overview**
+
+This task involves designing a relational database for an e-commerce scenario and writing SQL queries to analyze user behaviour, product performance, and revenue patterns. The task demonstrates understanding of  **schema creation, JOINs, aggregations, subqueries, and window functions**.
+
+----------
+
+## **Database Schema**
+
+Three relational tables were created with proper primary keys and foreign key constraints:
+
+### **1.  `users`**
+
+Stores customer details.
+
+-   `user_id`  (PK)
+    
+-   `user_name`
+    
+-   `email`
+    
+-   `country`
+    
+-   `created_at`
+    
+
+### **2.  `products`**
+
+Stores product catalog information.
+
+-   `product_id`  (PK)
+    
+-   `product_name`
+    
+-   `category`
+    
+-   `price`
+    
+
+### **3.  `transactions`**
+
+Stores purchase activity.
+
+-   `transaction_id`  (PK)
+    
+-   `user_id`  (FK → users.user_id)
+    
+-   `product_id`  (FK → products.product_id)
+    
+-   `quantity`
+    
+-   `transaction_date`
+    
+-   `payment_method`
+    
+-   `status`
+    
+
+----------
+
+## **Objectives of the Task**
+
+-   Create normalized tables with proper constraints.
+    
+-   Write SQL queries to analyze transactions, revenue, and customer spending.
+    
+-   Demonstrate use of  **JOINs**,  **GROUP BY**,  **aggregations**,  **subqueries**, and  **window functions**.
+    
+
+----------
+
+## **Queries Implemented**
+
+### **Q1 — Basic JOIN**
+
+Return transaction details along with user name and country.
+
+### **Q2 — Transaction Amount Calculation**
+
+Combine users, products, and transactions and compute  
+`total_amount = quantity × price`.
+
+### **Q3 — Country-wise Revenue**
+
+SUM of revenue grouped by user country.
+
+### **Q4 — High-Value Users**
+
+Find users who spent  **more than 1000**  using a subquery.
+
+### **Q5 — Ranking Transactions**
+
+Use  `ROW_NUMBER()`  window function to rank each user’s transactions by date (latest first).
+
+### **Q6 — Filtered Transactions**
+
+Retrieve only  **successful Credit Card transactions**  after  `2024-01-01`.
+
+### **Q7 — Top 3 Best-Selling Products**
+
+Order products by total revenue and return top 3.
+
+### **Q8 — Average Order Value (AOV) per User**
+
+Compute average revenue per transaction for each user.
+
+----------
+
+## **Skills Demonstrated**
+
+ SQL table creation  
+Primary key & foreign key relationships  
+JOINs (INNER JOIN)  
+Aggregations (SUM, AVG)  
+GROUP BY & HAVING  
+Filtering with WHERE  
+Subqueries  
+Window functions (ROW_NUMBER)  
+Revenue calculations
+
+----------
+
+## **Summary**
+
+Task 3 successfully models an e-commerce database and performs analytical SQL queries that are commonly required in real-world data engineering and BI analyst roles. The task highlights clean schema design, relational integrity, and strong SQL querying capability.
