@@ -117,3 +117,173 @@ Based on the executed analysis:
     
     
 -   Cleaned data shows  **no invalid duration entries**  and  **no missing values**, ensuring consistency for ML tasks.
+
+----------
+
+# **Task 2 — Basic ML Model**
+
+### **Model Used**
+
+-   **Model:**  Logistic Regression (with StandardScaler + Pipeline)
+    
+-   **Features Used:**
+    
+    -   `danceability`
+        
+    -   `energy`
+        
+    -   `tempo`
+        
+    -   `loudness`
+        
+    -   `duration_ms`
+        
+-   **Target Variable:**
+    
+    -   `is_popular`  → 1 if popularity > 70, else 0
+        
+
+----------
+
+### **Why This Model?**
+
+#### **Logistic Regression**
+
+-   Baseline model for binary classification.
+    
+-   Fast to train and easy to interpret.
+    
+-   Produces probability outputs for popularity prediction.
+    
+-   Works well with standardized numeric features (handled via  `StandardScaler`  in the pipeline).
+    
+
+_(Decision Tree was not used, but is often a common baseline alternative.)_
+
+----------
+
+### **Evaluation Setup**
+
+-   **Train/Test Split:**  80% train, 20% test
+    
+-   **Stratification:**  Ensures the proportion of popular vs. non-popular songs remains consistent.
+    
+-   **Metrics Evaluated:**
+    
+    -   Accuracy
+        
+    -   F1-score
+        
+    -   Precision & Recall via classification report
+        
+
+----------
+
+### **Results (Actual Output)**
+
+Metric
+
+Value
+
+**Accuracy**
+
+**0.9575**
+
+**F1-score**
+
+**0.0000**
+
+#### **Classification Report Summary**
+
+Class
+
+Precision
+
+Recall
+
+F1-score
+
+Support
+
+**0 (not popular)**
+
+0.96
+
+1.00
+
+0.98
+
+21,831
+
+**1 (popular)**
+
+0.00
+
+0.00
+
+0.00
+
+969
+
+**Overall Accuracy**
+
+**95.75%**
+
+22,800
+
+----------
+
+### **Why Is Accuracy High But F1-score = 0?**
+
+This happens because of  **severe class imbalance**:
+
+-   Class  **0 (not popular)**  →  **21,831 samples**
+    
+-   Class  **1 (popular)**  →  **only 969 samples**
+    
+
+The model learned to  **predict nearly everything as class 0**, because class 0 dominates the dataset.
+
+So:
+
+-   Accuracy becomes high (because most data is class 0).
+    
+-   F1-score for class 1 becomes  **0**, since the model predicts  **zero popular songs correctly**.
+    
+
+This is a classic imbalance problem in classification.
+
+----------
+
+### **Strengths**
+
+-   Captures basic linear relationships between audio features and popularity.
+    
+-   Very high accuracy on the majority class.
+    
+-   Simple baseline pipeline to extend with more models.
+    
+-   Code structure is clean, modular, and easy to build upon.
+    
+
+----------
+
+### **Limitations**
+
+-   **Strong class imbalance**: Popular songs are <5% of dataset → model fails to learn minority class.
+    
+-   **F1-score = 0**  indicates the model is  _not_  actually detecting popularity.
+    
+-   **No resampling applied**  (SMOTE/oversampling/undersampling).
+    
+-   **Limited features**  — real-world popularity depends on:
+    
+    -   Artist popularity
+        
+    -   Playlist placement
+        
+    -   Release year
+        
+    -   Marketing, virality, social media trends
+        
+-   **No hyperparameter tuning**  was performed.

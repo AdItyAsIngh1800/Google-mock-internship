@@ -34,8 +34,13 @@ def clean_data(df:pd.DataFrame)->pd.DataFrame:
 
     if "duration_ms" in df.columns:
         df = df[df["duration_ms"] > 0]
+    
+    df["is_popular"] = (df["popularity"] > 70).astype(int)
+
 
     return df
+
+   
 
 
 def save_data(df:pd.DataFrame , path:str)->None:
